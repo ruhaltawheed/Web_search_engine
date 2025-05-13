@@ -1,0 +1,31 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mini Arama Motoru</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Mini Wikipedia Arama Motoru</h1>
+    <form method="get" action="/">
+        <input type="text" name="q" placeholder="Bir şey ara..." value="{{ query or '' }}">
+        <button type="submit">Ara</button>
+    </form>
+
+    {% if results %}
+        <h2>Sonuçlar:</h2>
+        <ul>
+            {% for title, url, content in results %}
+                <li>
+                    <a href="{{ url }}" target="_blank">{{ title }}</a>
+                    <p>{{ content[:200] }}...</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif query %}
+        <p>Sonuç bulunamadı.</p>
+    {% endif %}
+</body>
+</html>
